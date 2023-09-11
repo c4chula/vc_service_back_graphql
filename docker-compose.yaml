@@ -1,0 +1,25 @@
+services:
+  vc_service_db:
+    container_name: vc_service_db
+    image: postgres:15-alpine
+    restart: on-failure
+    ports: 
+      - "${DB_PORT}:5432"
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - vc_service_network
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+      - ./sqls:/docker-entrypoint-initdb.d
+
+volumes:
+  db_volume: {}
+
+networks:
+  vc_service_network:
+    name: vc_service_network 
