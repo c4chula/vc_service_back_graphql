@@ -4,10 +4,10 @@ from sqlalchemy import ForeignKey, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from vc_service_back.models import Base
+from vc_service_back.models import Base, DateTimeMixin
 
 
-class Employee(Base):
+class Employee(Base, DateTimeMixin):
     __tablename__ = "employees"
 
     id: Mapped[UUID] = mapped_column(
