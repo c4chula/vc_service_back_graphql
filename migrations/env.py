@@ -1,11 +1,15 @@
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-
 from alembic import context
+from sqlalchemy import engine_from_config, pool
+
+from vc_service_back.appointments.models import (
+    Appointment,
+    AppointmentComment,
+    AppointmentService,
+)
 from vc_service_back.database import cfg
-from vc_service_back.employee.models import EmployeeRole, Employee 
+from vc_service_back.employee.models import Employee, EmployeeRole
 from vc_service_back.models import Base
 
 # this is the Alembic Config object, which provides
@@ -28,7 +32,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = Base.metadata 
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
