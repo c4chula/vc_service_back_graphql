@@ -6,6 +6,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# local db volume
+sqls
+
 # C extensions
 *.so
 

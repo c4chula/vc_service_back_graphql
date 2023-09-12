@@ -4,10 +4,20 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+from vc_service_back.database import cfg
+from vc_service_back.employee.models import EmployeeRole, Employee 
+from vc_service_back.models import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
+section = config.config_ini_section
+config.set_section_option(section, "DB_HOST", cfg.db_host)
+config.set_section_option(section, "DB_PORT", cfg.db_port)
+config.set_section_option(section, "DB_NAME", cfg.db_name)
+config.set_section_option(section, "DB_USER", cfg.db_user)
+config.set_section_option(section, "DB_PASS", cfg.db_password)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -18,7 +28,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+target_metadata = Base.metadata 
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -64,9 +74,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()
