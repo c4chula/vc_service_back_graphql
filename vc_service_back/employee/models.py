@@ -35,7 +35,7 @@ class EmployeeRole(Base):
     id: Mapped[UUID] = mapped_column(
         UUID(as_uuid=True),
         primary_key=True,
-        default=uuid.uuid4,
+        server_default="uuid_generate_v4()",
     )
 
     role_name: Mapped[str] = mapped_column(String(512), nullable=False, unique=True)

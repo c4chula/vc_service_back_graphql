@@ -18,7 +18,7 @@ class Appointment(Base, DateTimeMixin):
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         primary_key=True,
-        default=uuid.uuid4,
+        server_default="uuid_generate_v4()",
     )
 
     employee_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("employees.id"))
@@ -49,7 +49,7 @@ class AppointmentService(Base, DateTimeMixin):
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         primary_key=True,
-        default=uuid.uuid4,
+        server_default="uuid_generate_v4()",
     )
 
     name: Mapped[str] = mapped_column(String(512), nullable=False, unique=True)
@@ -67,7 +67,7 @@ class AppointmentComment(Base, DateTimeMixin):
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         primary_key=True,
-        default=uuid.uuid4,
+        server_default="uuid_generate_v4()",
     )
 
     body: Mapped[str] = mapped_column(Text, nullable=False)
