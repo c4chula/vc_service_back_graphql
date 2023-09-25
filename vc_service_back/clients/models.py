@@ -2,7 +2,7 @@ import uuid
 from typing import TYPE_CHECKING, List
 
 import sqlalchemy
-from sqlalchemy import String
+from sqlalchemy import ForeignKey, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -10,7 +10,7 @@ from vc_service_back.models import Base, DateTimeMixin
 
 if TYPE_CHECKING:
     from vc_service_back.appointments.models import Appointment
-    from vc_service_back.pets.models import PetOwnerAssociation
+    from vc_service_back.pets.models import Pet
 
 
 class Client(Base, DateTimeMixin):
@@ -30,4 +30,6 @@ class Client(Base, DateTimeMixin):
         back_populates="client",
     )
 
-    pets: Mapped[List["PetOwnerAssociation"]] = relationship(back_populates="owner")
+    pet_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("pets.id"))
+
+    pet: Mapped["Pet"] = relationship("Pet", back_populates="owners")

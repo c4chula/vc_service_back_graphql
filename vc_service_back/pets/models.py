@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING, List
 
 import sqlalchemy
-from sqlalchemy import ForeignKey, String
+from sqlalchemy import String
 from sqlalchemy.dialects.postgresql import TIMESTAMP, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -29,25 +29,8 @@ class Pet(Base, DateTimeMixin):
 
     date_of_birth: Mapped[datetime] = mapped_column(TIMESTAMP, nullable=True)
 
-    owners: Mapped[List["Client"]] = relationship(back_populates="pets")
+    owners: Mapped[List["Client"]] = relationship(back_populates="pet")
 
     appointment: Mapped["Appointment"] = relationship(
         back_populates="pet",
     )
-
-
-class PetOwnerAssociation(Base):
-    __tablename__ = "pet_owner_association"
-
-    owner_id: Mapped[uuid.UUID] = mapped_column(
-        ForeignKey("clients.id"),
-        primary_key=True,
-    )
-
-    pet_id: Mapped[uuid.UUID] = mapped_column(
-        ForeignKey("pets.id"),
-        primary_key=True,
-    )
-
-    owner: Mapped["Client"] = relationship(back_populates="pets")
-    pets: Mapped["Pet"] = relationship(back_populates="owners")

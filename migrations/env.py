@@ -8,14 +8,15 @@ from vc_service_back.appointments.models import (
     AppointmentComment,
     AppointmentService,
 )
-from vc_service_back.medications.models import Medication, MedicationRecord, Manufacturer
-
+from vc_service_back.medications.models import (
+    Medication,
+    MedicationRecord,
+    Manufacturer,
+)
 from vc_service_back.clients.models import Client
 from vc_service_back.employee.models import Employee, EmployeeRole
-
 from vc_service_back.equipment.models import Equipment, EquipmentRecord
-
-from vc_service_back.pets.models import Pet, PetOwnerAssociation
+from vc_service_back.pets.models import Pet
 from vc_service_back.models import Base
 
 from vc_service_back.database import cfg
