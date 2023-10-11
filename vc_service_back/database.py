@@ -7,9 +7,9 @@ from vc_service_back.config import PostgresSettings
 cfg = PostgresSettings()
 
 async_engine = create_async_engine(cfg.get_db_url())
-async_session = async_sessionmaker(async_engine, expire_on_commit=False)
+async_session_maker = async_sessionmaker(async_engine, expire_on_commit=False)
 
 
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
-    async with async_session as session:
+    async with async_session_maker() as session:
         yield session

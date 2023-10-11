@@ -18,6 +18,6 @@ class DateTimeMixin:
     updated_at: Mapped[datetime] = mapped_column(
         TIMESTAMP,
         nullable=False,
-        server_default=func.current_timestamp(),
+        server_default=func.now(),
         server_onupdate=func.current_timestamp(),
     )

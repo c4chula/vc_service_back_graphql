@@ -55,7 +55,7 @@ class Appointment(Base, DateTimeMixin):
     )
     appointment_service: Mapped["AppointmentService"] = relationship(
         "AppointmentService",
-        back_populates="appappointments",
+        back_populates="appointments",
     )
 
     appointment_comments: Mapped[List["AppointmentComment"]] = relationship(
@@ -90,6 +90,7 @@ class AppointmentService(Base, DateTimeMixin):
     price: Mapped[MONEY] = mapped_column(MONEY)
 
     appointments: Mapped[List["Appointment"]] = relationship(
+        "Appointment",
         back_populates="appointment_service",
     )
 
