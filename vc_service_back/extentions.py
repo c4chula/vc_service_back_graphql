@@ -1,12 +1,12 @@
 from strawberry.extensions import SchemaExtension
 from strawberry.utils.await_maybe import AsyncIteratorOrIterator
 
-from vc_service_back.database import get_async_session
+from vc_service_back.database import async_session_maker
 
 
 class AsyncSessionExtention(SchemaExtension):
     async def on_operation(self) -> AsyncIteratorOrIterator[None]:
-        async with await anext(get_async_session()) as session:
+        async with async_session_maker() as session:
             self.execution_context.context["db_session"] = session
             yield
-            self.execution_context.context["db_session"].close()
+            del self.execution_context.context["db_session"]
