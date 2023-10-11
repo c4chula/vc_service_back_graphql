@@ -22,14 +22,16 @@ class EmployeeSchema:
     full_name: str
     email: str
     phone_number: str
+    employee_role_id: strawberry.Private[UUID]
 
-    @strawberry.field
-    async def employee_role(self, info: Info) -> EmployeeRoleSchema:
+    async def get_employee_role(self, info: Info) -> EmployeeRoleSchema:
         session: AsyncSession = info.context["db_session"]
         employee_role = await EmployeeRoleRepo(session).get_employee_role_by_id(
-            self.id,
+            self.employee_role_id,
         )
         return EmployeeRoleSchema(
             id=employee_role.id,
             role_name=employee_role.role_name,
         )
+
+    employee_role: EmployeeRoleSchema = strawberry.field(resolver=get_employee_role)

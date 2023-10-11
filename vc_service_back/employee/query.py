@@ -20,14 +20,13 @@ class EmployeeQuery:
     ) -> Sequence[EmployeeSchema]:
         session: AsyncSession = info.context["db_session"]
         employees = await EmployeeRepo(session).get_all_employees()
-        if employees is Exception:
-            return []
         return [
             EmployeeSchema(
                 id=data.id,
                 full_name=data.full_name,
                 email=data.email,
                 phone_number=data.phone_number,
+                employee_role_id=data.employee_role_id,
             )
             for data in employees
         ]
@@ -39,8 +38,6 @@ class EmployeeRoleQuery:
     async def all_employee_roles(self, info: Info) -> Sequence[EmployeeRoleSchema]:
         session: AsyncSession = info.context["db_session"]
         employee_roles = await EmployeeRoleRepo(session).get_all_employee_roles()
-        if employee_roles is Exception:
-            return []
         return [
             EmployeeRoleSchema(
                 id=data.id,
