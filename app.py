@@ -8,11 +8,6 @@ from vc_service_back.extentions import AsyncSessionExtention
 
 app = FastAPI()
 
-
-# @strawberry.type
-# class Query(EmployeeQuery, EmployeeRoleQuery):
-# ...
-
 merged_query = merge_types(name="Query", types=(EmployeeQuery, EmployeeRoleQuery))
 
 schema = strawberry.Schema(merged_query, extensions=[AsyncSessionExtention])
