@@ -1,12 +1,20 @@
+from abc import ABC, abstractmethod
 from datetime import datetime
 
 from sqlalchemy.dialects.postgresql import TIMESTAMP
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.sql import func
 
 
 class Base(DeclarativeBase):
     pass
+
+
+class EntityRepo(ABC):
+    @abstractmethod
+    def __init__(self, session: AsyncSession) -> None:
+        self.session = session
 
 
 class DateTimeMixin:
