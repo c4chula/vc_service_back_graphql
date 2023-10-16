@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 from typing import Sequence
 from uuid import UUID
 
@@ -6,12 +5,7 @@ from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from vc_service_back.employee.models import Employee, EmployeeRole
-
-
-class EntityRepo(ABC):
-    @abstractmethod
-    def __init__(self, session: AsyncSession) -> None:
-        self.session = session
+from vc_service_back.models import EntityRepo
 
 
 class EmployeeRepo(EntityRepo):
