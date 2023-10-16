@@ -28,6 +28,7 @@ class Appointment(Base, DateTimeMixin):
     employee_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("employees.id"),
+        nullable=True,
     )
     employee: Mapped["Employee"] = relationship(
         "Employee",
@@ -37,12 +38,14 @@ class Appointment(Base, DateTimeMixin):
     client_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("clients.id"),
+        nullable=True,
     )
     client: Mapped["Client"] = relationship("Client", back_populates="appointment")
 
     pet_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("pets.id"),
+        nullable=True,
     )
     pet: Mapped["Pet"] = relationship(
         "Pet",
@@ -52,6 +55,7 @@ class Appointment(Base, DateTimeMixin):
     appointment_service_id: Mapped[UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("appointment_services.id"),
+        nullable=True,
     )
     appointment_service: Mapped["AppointmentService"] = relationship(
         "AppointmentService",
@@ -109,6 +113,7 @@ class AppointmentComment(Base, DateTimeMixin):
     appointment_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("appointments.id"),
+        nullable=True,
     )
     appointment: Mapped["Appointment"] = relationship(
         "Appointment",

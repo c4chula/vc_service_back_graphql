@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Sequence
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from vc_service_back.employee.models import Employee, EmployeeRole
@@ -18,10 +18,18 @@ class EmployeeRepo(EntityRepo):
     def __init__(self, session: AsyncSession) -> None:
         super().__init__(session)
 
-    async def get_all_employees(
-        self,
-    ) -> Sequence[Employee]:
+    async def get_all_employees(self, **filter) -> Sequence[Employee]:  # noqa: ANN003
         stmt = select(Employee)
+
+        filter_set = [
+            getattr(Employee, attr) == value
+            for attr, value in filter.items()
+            if hasattr(Employee, attr)
+        ]
+
+        if filter_set:
+            stmt = stmt.filter(or_(*filter_set))
+
         result: Sequence[Employee] = (
             (await self.session.execute(stmt)).scalars().fetchall()
         )

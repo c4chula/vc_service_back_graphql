@@ -40,6 +40,7 @@ class Employee(Base, DateTimeMixin):
     employee_role_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("employee_roles.id"),
+        nullable=True,
     )
     employee_role: Mapped["EmployeeRole"] = relationship(
         "EmployeeRole",

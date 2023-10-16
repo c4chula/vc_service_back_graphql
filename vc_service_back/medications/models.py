@@ -28,6 +28,7 @@ class Medication(Base):
     manufacturer_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("manufactures.id"),
+        nullable=True,
     )
 
     manufacturer: Mapped["Manufacturer"] = relationship(
@@ -52,6 +53,7 @@ class MedicationRecord(Base):
     appointment_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("appointments.id"),
+        nullable=True,
     )
 
     appointment: Mapped["Appointment"] = relationship(
@@ -62,6 +64,7 @@ class MedicationRecord(Base):
     medication_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("medications.id"),
+        nullable=True,
     )
     medication: Mapped["Medication"] = relationship(
         "Medication",

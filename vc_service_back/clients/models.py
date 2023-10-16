@@ -30,6 +30,10 @@ class Client(Base, DateTimeMixin):
         back_populates="client",
     )
 
-    pet_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("pets.id"))
+    pet_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("pets.id"),
+        nullable=True,
+    )
 
     pet: Mapped["Pet"] = relationship("Pet", back_populates="owners")

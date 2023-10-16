@@ -41,6 +41,7 @@ class EquipmentRecord(Base):
     appointment_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("appointments.id"),
+        nullable=True,
     )
 
     appointment: Mapped["Appointment"] = relationship(
@@ -51,6 +52,7 @@ class EquipmentRecord(Base):
     equipment_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("equipments.id"),
+        nullable=True,
     )
     equipment: Mapped["Equipment"] = relationship(
         "Equipment",
