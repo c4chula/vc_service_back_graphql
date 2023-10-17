@@ -44,7 +44,7 @@ class Medication(Base):
 class MedicationRecord(Base):
     __tablename__ = "medication_records"
 
-    id: Mapped[UUID] = mapped_column(
+    id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         primary_key=True,
         server_default=sqlalchemy.text("uuid_generate_v4()"),
@@ -75,7 +75,7 @@ class MedicationRecord(Base):
 class Manufacturer(Base):
     __tablename__ = "manufactures"
 
-    id: Mapped[UUID] = mapped_column(
+    id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         primary_key=True,
         server_default=sqlalchemy.text("uuid_generate_v4()"),
